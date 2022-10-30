@@ -8,10 +8,10 @@ list of objects
     z_web_liens_cU: 
     Apports: 
     Avantages: 
-    Description: 
-    Materiel: 
+    Description: description of the sport
+    Materiel: what you need to bring
     Remarques: 
-    is_Tournoi_b: 
+    is_Tournoi_b: 1 if it is a competition else 0
     label: 
     quotaSeancesMax: 
     zkp: 
