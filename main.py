@@ -1,23 +1,34 @@
 from data import Data
 import time
-import json
+from kivy.app import App
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
 
-def main():
-    
-    start = time.time()
-    sport = Data('https://sites.uclouvain.be/uclsport/api/v1/sport')
-    print(e[0]['_resid'])
-    lieu = Data('https://sites.uclouvain.be/uclsport/api/v1/lieu')
-    print()
-    e = [print(f'{key}: ') for key in lieu[0]]
-    activite = Data('https://sites.uclouvain.be/uclsport/api/v1/activite')
-    print()
-    e = [print(f'{key}: ') for key in activite[0]]
-    seance = Data('https://sites.uclouvain.be/uclsport/api/v1/seance')
-    print()
-    e = [print(f'{key}: ') for key in seance[0]]
-    end = time.time()
-    print(f'{end - start} seconds')
+
+class Sport(Button):
+    def __init__(self, name="", next_date="", location="", **kwargs):
+        super(Sport, self).__init__(**kwargs)
+        self.bind(on_press=self.on_press)
+        self.text = f'{name}'
+
+    def on_press(self, instance):
+        print("I am pressed")
+
+class MyRoot(BoxLayout):
+    def __init__(self, **kwargs):
+        super(MyRoot, self).__init__(**kwargs)
+        self.sports = Data('https://sites.uclouvain.be/uclsport/api/v1/sport')
+        self.lieux = Data('https://sites.uclouvain.be/uclsport/api/v1/lieu')
+        self.activites = Data('https://sites.uclouvain.be/uclsport/api/v1/activite')
+        self.seances = Data('https://sites.uclouvain.be/uclsport/api/v1/seance')
+        for sport in self.sports.data:
+            self.add_widget(Button(text=sport['label']))
+
+
+
+class UclSport(App):
+    def build(self):
+        return MyRoot()
 
 if __name__ == '__main__':
-    main()
+    UclSport().run()
